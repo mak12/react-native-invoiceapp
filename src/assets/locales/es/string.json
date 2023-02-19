@@ -17,11 +17,12 @@
     "loading": "Loading"
   },
   "app": {
-    "name": "Mobile boilerplate"
+    "name": "Simple Invoice"
   },
   "common": {
     "signIn": "Sign In",
     "login": "Login",
+    "logout": "Logout",
     "signUp": "Sign up",
     "register": "Register",
     "user_id": "User id",
@@ -31,25 +32,11 @@
     "again": "Again",
     "continue": "Continue",
     "email": "Email",
-    "congratulations": "Congratulations",
-    "tasks": "Tasks",
-    "add_details": "Add Details",
-    "connect": "Connect",
-    "create_account": "Create Account",
     "forgot_password": "Forgot Password?",
-    "model": "Model",
-    "serial": "Serial",
     "purchaseDate": "Purchase Date",
     "purchasedFrom": "Purchase From",
     "hi_": "Hi",
-    "deadline": "Deadline",
-    "next": "Next",
-    "chooseFile": "Choose File",
-    "instructions": "Instructions",
-    "paymentAmount": "Payment Amount",
-    "requestProcessing": "Your request is now processing.",
-    "need_help": "Need Help?",
-    "chooseOption": "Choose Option"
+    "addInvoice": "Add Invoice"
   },
   "question": {
     "yes": "Yes",
@@ -59,5 +46,25 @@
   "empty_list": {
     "empty_list": "Empty list",
     "empty_product": "The product list is empty"
+  },
+  "loginScreen": {
+    "emailPlaceholder": "Enter Email",
+    "passwordPlaceholder": "Enter Password",
+    "emailInputError": "Invalid Email",
+    "passwordInputError": "Invalid Password"
+  },
+  "dashboardScreen": {
+    "sortSelectorPlaceholder": "Order sorting",
+    "statusSelectorPlaceholder": "Filter Orders",
+    "orderStatusSelectorPlaceholder": "paid etc",
+    "orderSrotSelectorPlaceholder": "ascending etc"
+  },
+  "createInvoicesScreen": {
+    "title": "Create Invoice",
+    "referenceFieldHeading": "Enter reference #",
+    "dateFieldHeading": "Enter date of invoice",
+    "amountFieldHeading": "Enter Amount",
+    "descriptionFieldHeading": "Enter Description",
+    "dateFieldPlaceholder": "e.g 2023-02-19"
   }
 }

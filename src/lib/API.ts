@@ -15,12 +15,15 @@ const instance = axios.create({
 //interceptor for request
 instance.interceptors.request.use(
   config => {
-    const token = store.getState().auth.token;
+    const {token, org_token} = store.getState().auth;
     Logger.log('request url ', config.baseURL);
     Logger.log('request url ', config.url);
 
     if (token) {
       config.headers!!['Authorization'] = 'Bearer ' + token;
+    }
+    if (org_token !== '') {
+      config.headers!!['org-token'] = org_token;
     }
     return config;
   },

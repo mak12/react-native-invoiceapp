@@ -2,6 +2,8 @@ import {Alert} from 'react-native';
 import {APIError} from './types';
 import {InternalError} from '@lib/API';
 import axios, {AxiosError} from 'axios';
+import * as Yup from 'yup';
+import {AuthValidations} from './constants';
 
 //common logger (have to use JSON.stringify to be able to see logs in flipper using ios simulator)
 export const Logger = {
@@ -105,4 +107,53 @@ export const getExceptionPayload = (
     Logger.log('err else', error.response);
     return InternalError;
   }
+};
+
+//Login YUP validations
+export const GetLoginFormValidations = () =>
+  Yup.object().shape({
+    password: Yup.string()
+      .min(AuthValidations.passwordMin, 'Too Short!')
+      .max(AuthValidations.passwordMax, 'Too Long!')
+      .required('Required'),
+    email: Yup.string().email('Invalid email').required('Required'),
+  });
+
+//Create invoice YUP validations
+export const GetCreateInvoiceFormValidations = () =>
+  Yup.object().shape({
+    reference: Yup.string()
+      .required('Enter reference')
+      .matches(/^[0-9]+$/, 'Must be only digits'),
+    date: Yup.date()
+      .max(
+        new Date().toISOString().substring(0, 10),
+        'Date cannot be of future',
+      )
+      .required(),
+    description: Yup.string().required('Enter description'),
+    amount: Yup.string().required('Enter amount'),
+  });
+
+export const RandomNumberGenerator = (limit: number) => {
+  return Math.random()
+    .toString()
+    .slice(2, 2 + limit);
+};
+
+//get random description
+export const GetRandomDescription = (randomNumber: number) => {
+  let vehicles = [
+    'Honda 125',
+    'Suzuki 250',
+    'Baneli 150',
+    'Vitz 2010',
+    'Accord 2000',
+    'Yamaha 125',
+    'Suzuki 150',
+    'Mehran 2010',
+  ];
+  return randomNumber < vehicles.length
+    ? vehicles[randomNumber]
+    : 'Accord 2000';
 };

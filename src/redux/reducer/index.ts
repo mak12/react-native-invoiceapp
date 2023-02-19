@@ -5,17 +5,16 @@ import {AuthReducer} from './AuthSlice';
 
 import createSensitiveStorage from '@utilities/SensitiveStorage';
 import {DashboardReducer} from './DashboardSlice';
-// import {ArticlesReducer} from './ArticlesSlice';
 
 //securing sensitive info
 const sensitiveStorage = createSensitiveStorage({
-  keychainService: 'nytKeychain',
+  keychainService: 'invoiceKeychain',
   sharedPreferencesName: 'nytSharedPrefs',
 });
 // combining all reducers to persist them
 
 const tokenPersistConfig = {
-  key: 'authPersist',
+  key: 'invoiceAuthPersist',
   storage: sensitiveStorage,
 };
 const persistConfig = {

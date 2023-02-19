@@ -17,5 +17,6 @@
       "@screens/*": ["./src/components/screens/*"],
       "@models/*": ["./src/models/*"]
     }
-  }
+  },
+  "typeRoots": ["./types"]
 }

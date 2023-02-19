@@ -8,6 +8,10 @@ import {Provider} from 'react-redux';
 import storeConfig from './src/redux/store';
 import AppNavigator from './src/navigation/index';
 import I18n from './src/utilities/i18n/i18n';
+import {extendTheme, NativeBaseProvider} from 'native-base';
+import {NATIVE_BASE_CONFIG} from '@utilities/constants';
+
+const theme = extendTheme(NATIVE_BASE_CONFIG);
 
 const App = () => {
   const {store, persistor} = storeConfig();
@@ -15,8 +19,10 @@ const App = () => {
     <PersistGate persistor={persistor}>
       <Provider store={store}>
         <I18nextProvider i18n={I18n}>
-          <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
-          <AppNavigator />
+          <NativeBaseProvider theme={theme}>
+            <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
+            <AppNavigator />
+          </NativeBaseProvider>
         </I18nextProvider>
       </Provider>
     </PersistGate>

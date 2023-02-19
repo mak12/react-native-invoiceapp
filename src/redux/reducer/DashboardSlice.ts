@@ -1,116 +1,55 @@
-import {
-  IActiveWorkOrders,
-  IAppliances,
-  IAppliancesBrand,
-  IWoCategory,
-} from '@models/APIModels';
+import {API} from '@lib/API';
+import {IInvoice} from '@models/APIModels';
 import {SLICE_NAME} from '@models/generalTypes';
-import {store} from '@redux/store';
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {APP_URLS} from '@utilities/constants';
-import {getExceptionPayload, Logger} from '@utilities/utils';
-import API from '../../lib/API';
+import {APIResponse} from '@utilities/types';
+import {getExceptionPayload, showAlertDialog} from '@utilities/utils';
 
 interface AppState {
-  activeWorkOrders: IActiveWorkOrders[];
-  brands: IAppliancesBrand[];
-  woCategories: IWoCategory[];
+  invoicesList: IInvoice[];
   loading: boolean;
 }
 
 const initialAppState: AppState = {
-  activeWorkOrders: [],
-  brands: [],
-  woCategories: [],
+  invoicesList: [],
   loading: false,
 };
 
-export const getActiveWorkOrders = createAsyncThunk(
-  'eService/getActiveWorkOrders',
-  async (customerId: number, thunkAPI) => {
-    Logger.log('customerId ', customerId);
+export const getInvoicesList = createAsyncThunk(
+  'eService/getInvoicesList',
+  async (queryParams: string, thunkAPI) => {
     const {rejectWithValue} = thunkAPI;
     try {
-      const response = await API.post<IActiveWorkOrders[]>(
-        `${APP_URLS.GET_ACTIVE_WORK_ORDERS}${customerId}`,
+      const response = await API().get<APIResponse<IInvoice[]>>(
+        `${APP_URLS.GET_INVOICES_LIST}?${queryParams}`,
       ); //here you fetch data with catgeories
-      return await response.data;
+      return await response.data.data;
     } catch (error) {
+      showAlertDialog(getExceptionPayload(error).message);
       return rejectWithValue(getExceptionPayload(error));
     }
   },
 );
 
-export const getBrands = createAsyncThunk(
-  'eService/getBrands',
-  async (_, thunkAPI) => {
-    const {rejectWithValue} = thunkAPI;
-    try {
-      const response = await API.post<IAppliancesBrand[]>(
-        `${APP_URLS.GET_APPLIANCES_BRANDS}`,
-      ); //here you fetch data with catgeories
-      return await response.data;
-    } catch (error) {
-      return rejectWithValue(getExceptionPayload(error));
-    }
-  },
-);
-
-export const getWoCategories = createAsyncThunk(
-  'eService/getWoCategories',
-  async (_, thunkAPI) => {
-    const {rejectWithValue} = thunkAPI;
-    try {
-      const response = await API.post<IWoCategory[]>(
-        `${APP_URLS.GET_WOCATEGORIES}`,
-      ); //here you fetch data with catgeories
-      return await response.data;
-    } catch (error) {
-      return rejectWithValue(getExceptionPayload(error));
-    }
-  },
-);
 const dashboardSlice = createSlice({
   name: SLICE_NAME.DASHBOARD,
   initialState: initialAppState,
   reducers: {
-    onSetArticleQuerry: (state, {payload}: PayloadAction<string>) => {},
-    onSetAppliances: (state, {payload}: PayloadAction<[]>) => {
-      state.activeWorkOrders = payload;
+    onUpdateInvoiceList: (state, {payload}: PayloadAction<IInvoice[]>) => {
+      state.invoicesList = payload;
     },
   },
   extraReducers: builder => {
-    builder.addCase(getActiveWorkOrders.pending, state => {
+    builder.addCase(getInvoicesList.pending, state => {
       state.loading = true;
     });
-    builder.addCase(getActiveWorkOrders.fulfilled, (state, {payload}) => {
+    builder.addCase(getInvoicesList.fulfilled, (state, {payload}) => {
       state.loading = false;
-      state.activeWorkOrders = payload;
+      state.invoicesList = payload ?? [];
     });
-    builder.addCase(getActiveWorkOrders.rejected, (state, {payload}) => {
+    builder.addCase(getInvoicesList.rejected, (state, {payload}) => {
       state.loading = false;
-    });
-    //get brands
-    builder.addCase(getBrands.pending, state => {
-      // state.loading = true;
-    });
-    builder.addCase(getBrands.fulfilled, (state, {payload}) => {
-      // state.loading = false;
-      state.brands = payload;
-    });
-    builder.addCase(getBrands.rejected, (state, {payload}) => {
-      // state.loading = false;
-    });
-    //get wocategories
-    builder.addCase(getWoCategories.pending, state => {
-      // state.loading = true;
-    });
-    builder.addCase(getWoCategories.fulfilled, (state, {payload}) => {
-      // state.loading = false;
-      state.woCategories = payload;
-    });
-    builder.addCase(getWoCategories.rejected, (state, {payload}) => {
-      // state.loading = false;
     });
   },
 });

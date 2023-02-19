@@ -1,6 +1,7 @@
 export enum APP_SCREEN {
   LOGIN = 'Login',
   HOME = 'Home',
+  CREATE_INVOICE = 'Create_Invoice',
 }
 
 export type AuthStackParamList = {
@@ -9,6 +10,7 @@ export type AuthStackParamList = {
 
 export type HomeStackParamList = {
   [APP_SCREEN.HOME]: undefined;
+  [APP_SCREEN.CREATE_INVOICE]: undefined;
 };
 
 export enum APIStatus {
