@@ -1,6 +1,6 @@
 import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
 import {APP_SCREEN, HomeStackParamList} from '@utilities/types';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {
   NativeStackNavigationProp,
   NativeStackScreenProps,
@@ -103,6 +103,15 @@ const HomeScreenComp: React.FC<HomeScreenProps> = () => {
       FetchInvoices(queryParams);
     });
   }, []);
+
+  /**
+   * we could use this also to fetch data after new invoice is added
+   * or we can have useEffect with navigation params
+   */
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //   }, [dispatch])
+  // );
   //to have scroll to refresh option in flatlist
   const onRefresh = useCallback(() => {
     FetchInvoices(queryParams);

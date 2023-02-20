@@ -61,8 +61,8 @@
   },
   "createInvoicesScreen": {
     "title": "Create Invoice",
-    "referenceFieldHeading": "Enter reference #",
-    "dateFieldHeading": "Enter date of invoice",
+    "referenceFieldHeading": "Enter Reference #",
+    "dateFieldHeading": "Invoice Date (e.g 2023-02-19)",
     "amountFieldHeading": "Enter Amount",
     "descriptionFieldHeading": "Enter Description",
     "dateFieldPlaceholder": "e.g 2023-02-19"

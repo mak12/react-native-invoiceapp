@@ -219,6 +219,7 @@ const CreateInvoiceScreenComp: React.FC<CreateInvoiceScreenProps> = ({
                 keyboardType="numbers-and-punctuation"
                 returnKeyType="done"
                 type="text"
+                placeholder={t('createInvoicesScreen:dateFieldPlaceholder')}
                 containerProps={{
                   mt: 3,
                 }}
