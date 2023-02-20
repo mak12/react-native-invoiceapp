@@ -106,20 +106,26 @@ const HomeScreenComp: React.FC<HomeScreenProps> = () => {
   //to have scroll to refresh option in flatlist
   const onRefresh = useCallback(() => {
     FetchInvoices(queryParams);
-  }, []);
+  }, [queryParams]);
 
-  const onSelectStatus = useCallback((value: string) => {
-    let quer = {...queryParams};
-    quer.status = value;
-    setQueryParams(quer);
-    FetchInvoices(quer);
-  }, []);
-  const onSelectOder = useCallback((value: string) => {
-    let quer = {...queryParams};
-    quer.ordering = value;
-    setQueryParams(quer);
-    FetchInvoices(quer);
-  }, []);
+  const onSelectStatus = useCallback(
+    (value: string) => {
+      let quer = {...queryParams};
+      quer.status = value;
+      setQueryParams(quer);
+      FetchInvoices(quer);
+    },
+    [queryParams],
+  );
+  const onSelectOder = useCallback(
+    (value: string) => {
+      let quer = {...queryParams};
+      quer.ordering = value;
+      setQueryParams(quer);
+      FetchInvoices(quer);
+    },
+    [queryParams],
+  );
   return (
     <VStack flex={1} safeArea bgColor={'white'}>
       <HStack
@@ -228,7 +234,6 @@ const HomeScreenComp: React.FC<HomeScreenProps> = () => {
             index={index}
             item={item}
             key={`invoiceListItem${index}`}
-            onPress={index => {}}
           />
         )}
       />
